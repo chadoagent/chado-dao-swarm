@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from src.config import settings
 from src.agents.orchestrator import Orchestrator
+from src.protocols.a2a import handle_a2a_request
 from src.utils.logging import ExecutionLogger
 
 app = FastAPI(title="Chado DAO Swarm", version="0.1.0")
@@ -55,6 +57,30 @@ async def analyze(req: AnalyzeRequest):
         analysis=result["analysis"],
         execution_log_id=log_entry["id"],
     )
+
+
+@app.post("/a2a")
+async def a2a_endpoint(request: Request):
+    """A2A (Agent-to-Agent) JSON-RPC 2.0 endpoint."""
+    data = await request.json()
+    handlers = {
+        "analyze": lambda params: orchestrator.run(params),
+        "status": lambda _: orchestrator.agent_status(),
+    }
+    result = await handle_a2a_request(data, handlers)
+    return JSONResponse(content=result)
+
+
+@app.get("/.well-known/agent.json")
+async def agent_card():
+    """Serve agent.json for A2A discovery."""
+    return {
+        "format": "Registration-v1",
+        "name": "Chado DAO Swarm",
+        "description": "Multi-agent swarm for DAO decision support",
+        "services": [{"type": "api", "url": f"http://localhost:8716/api/v1"}],
+        "supportedTrust": ["execution-logs"],
+    }
 
 
 if __name__ == "__main__":
