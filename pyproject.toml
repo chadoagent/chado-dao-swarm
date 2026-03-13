@@ -1,0 +1,14 @@
+[project]
+name = "chado-studio"
+version = "0.1.0"
+description = "Multi-agent swarm for DAO decision support — Synthesis Hackathon 2026"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

@@ -1,0 +1,9 @@
+{
+  "format": "Registration-v1",
+  "name": "Chado DAO Swarm",
+  "description": "Multi-agent swarm for DAO decision support — proposal analysis, impact simulation, and voting recommendations",
+  "services": [
+    {"type": "api", "url": "https://chado.studio/api/v1"}
+  ],
+  "supportedTrust": ["execution-logs"]
+}
