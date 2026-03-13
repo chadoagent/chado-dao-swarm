@@ -19,13 +19,28 @@ class Orchestrator:
         simulation = await self.simulator.run(proposal)
 
         # Phase 3: Synthesize recommendation
-        result = await self.recommender.run({
+        rec = await self.recommender.run({
             "proposal": proposal,
             "simulation": simulation,
             "protocol": task.get("protocol", "curve"),
         })
 
-        return result
+        return {
+            "recommendation": rec.get("recommendation", "abstain"),
+            "confidence": rec.get("confidence", 0.0),
+            "analysis": {
+                "summary": proposal.get("summary", ""),
+                "rationale": rec.get("rationale", ""),
+                "key_risks": rec.get("key_risks", []),
+                "key_benefits": rec.get("key_benefits", []),
+                "risk_score": simulation.get("risk_score", 0.0),
+                "treasury_impact_usd": simulation.get("treasury_impact_usd", 0.0),
+                "vote_distribution": simulation.get("vote_distribution", {}),
+                "quorum_met": simulation.get("quorum_met"),
+                "affected_pools": proposal.get("affected_pools", []),
+                "parameters_changed": proposal.get("parameters_changed", []),
+            },
+        }
 
     def agent_status(self) -> dict:
         return {

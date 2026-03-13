@@ -1,7 +1,7 @@
 [project]
-name = "chado-studio"
+name = "chado-dao-swarm"
 version = "0.1.0"
-description = "Multi-agent swarm for DAO decision support — Synthesis Hackathon 2026"
+description = "Multi-agent swarm for DAO decision support — Synthesis Hackathon 2026, Protocol Labs track"
 requires-python = ">=3.12"
 license = {text = "MIT"}
 

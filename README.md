@@ -1,11 +1,6 @@
-# Chado Studio
+# Chado DAO Swarm
 
-Multi-agent swarm for DAO decision support. Synthesis Hackathon 2026 submission.
-
-## Tracks
-
-1. **Protocol Labs "Let the Agent Cook"** — DAO proposal analysis, impact simulation, voting recommendations
-2. **Olas Pearl** — crvUSD yield optimizer
+Multi-agent swarm for DAO decision support. Synthesis Hackathon 2026 — Protocol Labs track.
 
 ## Architecture
 
@@ -13,8 +8,7 @@ Multi-agent swarm for DAO decision support. Synthesis Hackathon 2026 submission.
 Orchestrator
   ├── Proposal Analyzer  — parse & extract governance proposals
   ├── Impact Simulator   — model voting outcomes & treasury impact
-  ├── Recommender        — synthesize analysis into actionable recommendation
-  └── Yield Optimizer    — crvUSD yield monitoring (Olas track)
+  └── Recommender        — synthesize analysis into actionable recommendation
 ```
 
 ERC-8004 identity on Base chain. Execution logs for trust verification.
